@@ -1,0 +1,308 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<WorkflowBuilder Version="2.8.5"
+                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                 xmlns:p1="clr-namespace:neurostate-hmm;assembly=neurostate-hmm"
+                 xmlns:rx="clr-namespace:Bonsai.Reactive;assembly=Bonsai.Core"
+                 xmlns:py="clr-namespace:Bonsai.Scripting.Python;assembly=Bonsai.Scripting.Python"
+                 xmlns="https://bonsai-rx.org/2018/workflow">
+  <Workflow>
+    <Nodes>
+      <Expression xsi:type="ExternalizedMapping">
+        <Property Name="SampleRate" />
+        <Property Name="DownsampledSampleRate" />
+        <Property Name="FilterLowerBound" />
+        <Property Name="FilterUpperBound" />
+        <Property Name="WindowDuration" />
+        <Property Name="WindowStepDuration" />
+        <Property Name="LowFrequencyBound" />
+        <Property Name="HighFrequencyBound" />
+        <Property Name="Parameters_FN" />
+      </Expression>
+      <Expression xsi:type="IncludeWorkflow" Path="neurostate-hmm:InitPreProcess.bonsai">
+        <SampleRate>30000</SampleRate>
+        <DownsampledSampleRate>500</DownsampledSampleRate>
+        <FilterLowerBound>0.3</FilterLowerBound>
+        <FilterUpperBound>200</FilterUpperBound>
+        <WindowDuration>1.024</WindowDuration>
+        <WindowStepDuration>0.04</WindowStepDuration>
+        <LowFrequencyBound>1</LowFrequencyBound>
+        <HighFrequencyBound>100</HighFrequencyBound>
+        <Parameters_FN></Parameters_FN>
+      </Expression>
+      <Expression xsi:type="ExternalizedMapping">
+        <Property Name="NumStates" />
+        <Property Name="NumSubstates" />
+        <Property Name="ObsDimension" />
+        <Property Name="Training_Data_FN" />
+        <Property Name="ModelFN" />
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="p1:InitializeParametersFitting">
+          <p1:SampleRate>30000</p1:SampleRate>
+          <p1:DownsampledSampleRate>500</p1:DownsampledSampleRate>
+          <p1:FilterLowerBound>0.3</p1:FilterLowerBound>
+          <p1:FilterUpperBound>200</p1:FilterUpperBound>
+          <p1:WindowDuration>1.024</p1:WindowDuration>
+          <p1:WindowStepDuration>0.04</p1:WindowStepDuration>
+          <p1:LowFrequencyBound>1</p1:LowFrequencyBound>
+          <p1:HighFrequencyBound>100</p1:HighFrequencyBound>
+          <p1:Parameters_FN></p1:Parameters_FN>
+          <p1:NumStates>2</p1:NumStates>
+          <p1:NumSubstates>1</p1:NumSubstates>
+          <p1:ObsDimension>2</p1:ObsDimension>
+          <p1:Training_Data_FN></p1:Training_Data_FN>
+          <p1:ModelFN></p1:ModelFN>
+        </Combinator>
+      </Expression>
+      <Expression xsi:type="MemberSelector">
+        <Selector>NumStates</Selector>
+      </Expression>
+      <Expression xsi:type="rx:BehaviorSubject">
+        <Name>NumStates</Name>
+      </Expression>
+      <Expression xsi:type="MemberSelector">
+        <Selector>NumSubstates</Selector>
+      </Expression>
+      <Expression xsi:type="rx:BehaviorSubject">
+        <Name>NumSubstates</Name>
+      </Expression>
+      <Expression xsi:type="MemberSelector">
+        <Selector>ObsDimension</Selector>
+      </Expression>
+      <Expression xsi:type="rx:BehaviorSubject">
+        <Name>ObsDimension</Name>
+      </Expression>
+      <Expression xsi:type="MemberSelector">
+        <Selector>Training_Data_FN</Selector>
+      </Expression>
+      <Expression xsi:type="rx:BehaviorSubject">
+        <Name>Training_Data_FN</Name>
+      </Expression>
+      <Expression xsi:type="MemberSelector">
+        <Selector>ModelFN</Selector>
+      </Expression>
+      <Expression xsi:type="rx:BehaviorSubject">
+        <Name>ModelFN</Name>
+      </Expression>
+      <Expression xsi:type="SubscribeSubject">
+        <Name>InitPreProcessIndicator</Name>
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="rx:Zip" />
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="py:CreateModule">
+          <py:Name>FitModel</py:Name>
+          <py:ScriptPath>neurostate-hmm:ModelFittingFuncs.py</py:ScriptPath>
+        </Combinator>
+      </Expression>
+      <Expression xsi:type="rx:ResourceSubject">
+        <Name>FittingModule</Name>
+      </Expression>
+      <Expression xsi:type="PropertyMapping">
+        <PropertyMappings>
+          <Property Name="Module" />
+        </PropertyMappings>
+      </Expression>
+      <Expression xsi:type="SubscribeSubject">
+        <Name>FFT_LowerBound</Name>
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="py:ObserveOnGIL" />
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="py:Set">
+          <py:VariableName>FFT_lower_bound</py:VariableName>
+        </Combinator>
+      </Expression>
+      <Expression xsi:type="SubscribeSubject">
+        <Name>FFT_UpperBound</Name>
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="py:ObserveOnGIL" />
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="py:Set">
+          <py:VariableName>FFT_upper_bound</py:VariableName>
+        </Combinator>
+      </Expression>
+      <Expression xsi:type="SubscribeSubject">
+        <Name>LowFrequencyBound</Name>
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="py:ObserveOnGIL" />
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="py:Set">
+          <py:VariableName>low_freq_bound</py:VariableName>
+        </Combinator>
+      </Expression>
+      <Expression xsi:type="SubscribeSubject">
+        <Name>HighFrequencyBound</Name>
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="py:ObserveOnGIL" />
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="py:Set">
+          <py:VariableName>high_freq_bound</py:VariableName>
+        </Combinator>
+      </Expression>
+      <Expression xsi:type="SubscribeSubject">
+        <Name>NumStates</Name>
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="py:ObserveOnGIL" />
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="py:Set">
+          <py:VariableName>numstates</py:VariableName>
+        </Combinator>
+      </Expression>
+      <Expression xsi:type="SubscribeSubject">
+        <Name>ObsDimension</Name>
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="py:ObserveOnGIL" />
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="py:Set">
+          <py:VariableName>obsdim</py:VariableName>
+        </Combinator>
+      </Expression>
+      <Expression xsi:type="SubscribeSubject">
+        <Name>Training_Data_FN</Name>
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="py:ObserveOnGIL" />
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="py:Set">
+          <py:VariableName>data_file</py:VariableName>
+        </Combinator>
+      </Expression>
+      <Expression xsi:type="SubscribeSubject">
+        <Name>FFT_BufferSize</Name>
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="py:ObserveOnGIL" />
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="py:Set">
+          <py:VariableName>FFT_buffer_size</py:VariableName>
+        </Combinator>
+      </Expression>
+      <Expression xsi:type="SubscribeSubject">
+        <Name>ModelFN</Name>
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="py:ObserveOnGIL" />
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="py:Set">
+          <py:VariableName>model_fn</py:VariableName>
+        </Combinator>
+      </Expression>
+      <Expression xsi:type="SubscribeSubject">
+        <Name>NumSubstates</Name>
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="py:ObserveOnGIL" />
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="py:Set">
+          <py:VariableName>numsubstates</py:VariableName>
+        </Combinator>
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="p1:ZipN" />
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="rx:Zip" />
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="BooleanProperty">
+          <Value>true</Value>
+        </Combinator>
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="rx:WithLatestFrom" />
+      </Expression>
+      <Expression xsi:type="MemberSelector">
+        <Selector>Item2</Selector>
+      </Expression>
+      <Expression xsi:type="rx:BehaviorSubject">
+        <Name>InitFittingIndicator</Name>
+      </Expression>
+    </Nodes>
+    <Edges>
+      <Edge From="0" To="1" Label="Source1" />
+      <Edge From="0" To="3" Label="Source2" />
+      <Edge From="2" To="3" Label="Source1" />
+      <Edge From="3" To="4" Label="Source1" />
+      <Edge From="3" To="6" Label="Source1" />
+      <Edge From="3" To="8" Label="Source1" />
+      <Edge From="3" To="10" Label="Source1" />
+      <Edge From="3" To="12" Label="Source1" />
+      <Edge From="4" To="5" Label="Source1" />
+      <Edge From="5" To="15" Label="Source1" />
+      <Edge From="6" To="7" Label="Source1" />
+      <Edge From="7" To="15" Label="Source2" />
+      <Edge From="8" To="9" Label="Source1" />
+      <Edge From="9" To="15" Label="Source3" />
+      <Edge From="10" To="11" Label="Source1" />
+      <Edge From="11" To="15" Label="Source4" />
+      <Edge From="12" To="13" Label="Source1" />
+      <Edge From="13" To="15" Label="Source5" />
+      <Edge From="14" To="15" Label="Source6" />
+      <Edge From="15" To="50" Label="Source1" />
+      <Edge From="16" To="17" Label="Source1" />
+      <Edge From="17" To="18" Label="Source1" />
+      <Edge From="18" To="21" Label="Source1" />
+      <Edge From="18" To="24" Label="Source1" />
+      <Edge From="18" To="27" Label="Source1" />
+      <Edge From="18" To="30" Label="Source1" />
+      <Edge From="18" To="33" Label="Source1" />
+      <Edge From="18" To="36" Label="Source1" />
+      <Edge From="18" To="39" Label="Source1" />
+      <Edge From="18" To="42" Label="Source1" />
+      <Edge From="18" To="45" Label="Source1" />
+      <Edge From="18" To="48" Label="Source1" />
+      <Edge From="19" To="20" Label="Source1" />
+      <Edge From="20" To="21" Label="Source2" />
+      <Edge From="21" To="49" Label="Source1" />
+      <Edge From="22" To="23" Label="Source1" />
+      <Edge From="23" To="24" Label="Source2" />
+      <Edge From="24" To="49" Label="Source2" />
+      <Edge From="25" To="26" Label="Source1" />
+      <Edge From="26" To="27" Label="Source2" />
+      <Edge From="27" To="49" Label="Source3" />
+      <Edge From="28" To="29" Label="Source1" />
+      <Edge From="29" To="30" Label="Source2" />
+      <Edge From="30" To="49" Label="Source4" />
+      <Edge From="31" To="32" Label="Source1" />
+      <Edge From="32" To="33" Label="Source2" />
+      <Edge From="33" To="49" Label="Source5" />
+      <Edge From="34" To="35" Label="Source1" />
+      <Edge From="35" To="36" Label="Source2" />
+      <Edge From="36" To="49" Label="Source6" />
+      <Edge From="37" To="38" Label="Source1" />
+      <Edge From="38" To="39" Label="Source2" />
+      <Edge From="39" To="49" Label="Source7" />
+      <Edge From="40" To="41" Label="Source1" />
+      <Edge From="41" To="42" Label="Source2" />
+      <Edge From="42" To="49" Label="Source8" />
+      <Edge From="43" To="44" Label="Source1" />
+      <Edge From="44" To="45" Label="Source2" />
+      <Edge From="45" To="49" Label="Source9" />
+      <Edge From="46" To="47" Label="Source1" />
+      <Edge From="47" To="48" Label="Source2" />
+      <Edge From="48" To="49" Label="Source10" />
+      <Edge From="49" To="50" Label="Source2" />
+      <Edge From="50" To="52" Label="Source1" />
+      <Edge From="51" To="52" Label="Source2" />
+      <Edge From="52" To="53" Label="Source1" />
+      <Edge From="53" To="54" Label="Source1" />
+    </Edges>
+  </Workflow>
+</WorkflowBuilder>

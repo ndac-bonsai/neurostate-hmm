@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<WorkflowBuilder Version="2.8.5"
+                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                 xmlns:dsp="clr-namespace:Bonsai.Dsp;assembly=Bonsai.Dsp"
+                 xmlns="https://bonsai-rx.org/2018/workflow">
+  <Workflow>
+    <Nodes>
+      <Expression xsi:type="WorkflowInput">
+        <Name>Source1</Name>
+      </Expression>
+      <Expression xsi:type="IncludeWorkflow" Path="neurostate-hmm:PreProcess.bonsai" />
+      <Expression xsi:type="WorkflowOutput" />
+      <Expression xsi:type="SubscribeSubject">
+        <Name>Training_Data_FN</Name>
+      </Expression>
+      <Expression xsi:type="PropertyMapping">
+        <PropertyMappings>
+          <Property Name="Path" />
+        </PropertyMappings>
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="dsp:MatrixWriter">
+          <dsp:Path></dsp:Path>
+          <dsp:Suffix>None</dsp:Suffix>
+          <dsp:Overwrite>true</dsp:Overwrite>
+          <dsp:Layout>ColumnMajor</dsp:Layout>
+        </Combinator>
+      </Expression>
+    </Nodes>
+    <Edges>
+      <Edge From="0" To="1" Label="Source1" />
+      <Edge From="1" To="2" Label="Source1" />
+      <Edge From="1" To="5" Label="Source2" />
+      <Edge From="3" To="4" Label="Source1" />
+      <Edge From="4" To="5" Label="Source1" />
+    </Edges>
+  </Workflow>
+</WorkflowBuilder>

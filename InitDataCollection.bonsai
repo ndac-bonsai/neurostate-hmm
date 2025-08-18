@@ -1,0 +1,89 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<WorkflowBuilder Version="2.8.5"
+                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                 xmlns:p1="clr-namespace:neurostate-hmm;assembly=neurostate-hmm"
+                 xmlns:rx="clr-namespace:Bonsai.Reactive;assembly=Bonsai.Core"
+                 xmlns="https://bonsai-rx.org/2018/workflow">
+  <Workflow>
+    <Nodes>
+      <Expression xsi:type="ExternalizedMapping">
+        <Property Name="SampleRate" />
+        <Property Name="DownsampledSampleRate" />
+        <Property Name="FilterLowerBound" />
+        <Property Name="FilterUpperBound" />
+        <Property Name="WindowDuration" />
+        <Property Name="WindowStepDuration" />
+        <Property Name="LowFrequencyBound" />
+        <Property Name="HighFrequencyBound" />
+        <Property Name="Parameters_FN" />
+      </Expression>
+      <Expression xsi:type="IncludeWorkflow" Path="neurostate-hmm:InitPreProcess.bonsai">
+        <SampleRate>30000</SampleRate>
+        <DownsampledSampleRate>500</DownsampledSampleRate>
+        <FilterLowerBound>0.3</FilterLowerBound>
+        <FilterUpperBound>200</FilterUpperBound>
+        <WindowDuration>1.024</WindowDuration>
+        <WindowStepDuration>0.04</WindowStepDuration>
+        <LowFrequencyBound>1</LowFrequencyBound>
+        <HighFrequencyBound>100</HighFrequencyBound>
+        <Parameters_FN></Parameters_FN>
+      </Expression>
+      <Expression xsi:type="ExternalizedMapping">
+        <Property Name="Training_Data_FN" />
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="p1:InitializeParametersDataCollection">
+          <p1:SampleRate>30000</p1:SampleRate>
+          <p1:DownsampledSampleRate>500</p1:DownsampledSampleRate>
+          <p1:FilterLowerBound>0.3</p1:FilterLowerBound>
+          <p1:FilterUpperBound>200</p1:FilterUpperBound>
+          <p1:WindowDuration>1.024</p1:WindowDuration>
+          <p1:WindowStepDuration>0.04</p1:WindowStepDuration>
+          <p1:LowFrequencyBound>1</p1:LowFrequencyBound>
+          <p1:HighFrequencyBound>100</p1:HighFrequencyBound>
+          <p1:Parameters_FN></p1:Parameters_FN>
+          <p1:Training_Data_FN></p1:Training_Data_FN>
+        </Combinator>
+      </Expression>
+      <Expression xsi:type="MemberSelector">
+        <Selector>Training_Data_FN</Selector>
+      </Expression>
+      <Expression xsi:type="rx:BehaviorSubject">
+        <Name>Training_Data_FN</Name>
+      </Expression>
+      <Expression xsi:type="SubscribeSubject">
+        <Name>InitPreProcessIndicator</Name>
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="rx:Zip" />
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="BooleanProperty">
+          <Value>true</Value>
+        </Combinator>
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="rx:WithLatestFrom" />
+      </Expression>
+      <Expression xsi:type="MemberSelector">
+        <Selector>Item2</Selector>
+      </Expression>
+      <Expression xsi:type="rx:BehaviorSubject">
+        <Name>InitDataCollectionIndicator</Name>
+      </Expression>
+    </Nodes>
+    <Edges>
+      <Edge From="0" To="1" Label="Source1" />
+      <Edge From="0" To="3" Label="Source2" />
+      <Edge From="2" To="3" Label="Source1" />
+      <Edge From="3" To="4" Label="Source1" />
+      <Edge From="4" To="5" Label="Source1" />
+      <Edge From="5" To="7" Label="Source1" />
+      <Edge From="6" To="7" Label="Source2" />
+      <Edge From="7" To="9" Label="Source1" />
+      <Edge From="8" To="9" Label="Source2" />
+      <Edge From="9" To="10" Label="Source1" />
+      <Edge From="10" To="11" Label="Source1" />
+    </Edges>
+  </Workflow>
+</WorkflowBuilder>

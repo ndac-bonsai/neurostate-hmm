@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<WorkflowBuilder Version="2.8.5"
+                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                 xmlns:rx="clr-namespace:Bonsai.Reactive;assembly=Bonsai.Core"
+                 xmlns:py="clr-namespace:Bonsai.Scripting.Python;assembly=Bonsai.Scripting.Python"
+                 xmlns="https://bonsai-rx.org/2018/workflow">
+  <Workflow>
+    <Nodes>
+      <Expression xsi:type="SubscribeSubject">
+        <Name>InitFittingIndicator</Name>
+      </Expression>
+      <Expression xsi:type="SubscribeSubject">
+        <Name>FittingModule</Name>
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="rx:WithLatestFrom" />
+      </Expression>
+      <Expression xsi:type="MemberSelector">
+        <Selector>Item2</Selector>
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="py:Exec">
+          <py:Script># Calculate features
+np.random.seed(seed=0)
+pca_features, features_train, mean, stdev = \
+extract_features(data_file, low_freq_bound, high_freq_bound, FFT_lower_bound, FFT_upper_bound, FFT_buffer_size, obsdim)
+
+# Fit models
+n_iters = 100
+model, lls = fit_model(numstates,numsubstates,obsdim,features_train,n_iters)
+
+#Store models
+with open(model_fn, 'wb') as pkl:
+    pickle.dump([model,pca_features, mean, stdev, lls], pkl)
+print("Script terminated")</py:Script>
+        </Combinator>
+      </Expression>
+    </Nodes>
+    <Edges>
+      <Edge From="0" To="2" Label="Source1" />
+      <Edge From="1" To="2" Label="Source2" />
+      <Edge From="2" To="3" Label="Source1" />
+      <Edge From="3" To="4" Label="Source1" />
+    </Edges>
+  </Workflow>
+</WorkflowBuilder>

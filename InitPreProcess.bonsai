@@ -1,0 +1,331 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<WorkflowBuilder Version="2.8.5"
+                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                 xmlns:p1="clr-namespace:neurostate-hmm;assembly=neurostate-hmm"
+                 xmlns:rx="clr-namespace:Bonsai.Reactive;assembly=Bonsai.Core"
+                 xmlns="https://bonsai-rx.org/2018/workflow">
+  <Workflow>
+    <Nodes>
+      <Expression xsi:type="ExternalizedMapping">
+        <Property Name="SampleRate" />
+        <Property Name="DownsampledSampleRate" />
+        <Property Name="FilterLowerBound" />
+        <Property Name="FilterUpperBound" />
+        <Property Name="WindowDuration" />
+        <Property Name="WindowStepDuration" />
+        <Property Name="LowFrequencyBound" />
+        <Property Name="HighFrequencyBound" />
+        <Property Name="Parameters_FN" />
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="p1:InitializeParametersPreprocessing">
+          <p1:SampleRate>30000</p1:SampleRate>
+          <p1:DownsampledSampleRate>500</p1:DownsampledSampleRate>
+          <p1:FilterLowerBound>0.3</p1:FilterLowerBound>
+          <p1:FilterUpperBound>200</p1:FilterUpperBound>
+          <p1:WindowDuration>1.024</p1:WindowDuration>
+          <p1:WindowStepDuration>0.04</p1:WindowStepDuration>
+          <p1:LowFrequencyBound>1</p1:LowFrequencyBound>
+          <p1:HighFrequencyBound>100</p1:HighFrequencyBound>
+          <p1:Parameters_FN></p1:Parameters_FN>
+        </Combinator>
+      </Expression>
+      <Expression xsi:type="MemberSelector">
+        <Selector>SampleRate</Selector>
+      </Expression>
+      <Expression xsi:type="rx:BehaviorSubject">
+        <Name>SampleRate</Name>
+      </Expression>
+      <Expression xsi:type="MemberSelector">
+        <Selector>Parameters_FN</Selector>
+      </Expression>
+      <Expression xsi:type="rx:BehaviorSubject">
+        <Name>Parameters_FN</Name>
+      </Expression>
+      <Expression xsi:type="MemberSelector">
+        <Selector>HighFrequencyBound</Selector>
+      </Expression>
+      <Expression xsi:type="rx:BehaviorSubject">
+        <Name>HighFrequencyBound</Name>
+      </Expression>
+      <Expression xsi:type="MemberSelector">
+        <Selector>LowFrequencyBound</Selector>
+      </Expression>
+      <Expression xsi:type="rx:BehaviorSubject">
+        <Name>LowFrequencyBound</Name>
+      </Expression>
+      <Expression xsi:type="MemberSelector">
+        <Selector>ClockPeriodTimespan</Selector>
+      </Expression>
+      <Expression xsi:type="rx:BehaviorSubject">
+        <Name>ClockPeriodTimespan</Name>
+      </Expression>
+      <Expression xsi:type="MemberSelector">
+        <Selector>WindowStepDuration</Selector>
+      </Expression>
+      <Expression xsi:type="rx:BehaviorSubject">
+        <Name>WindowStepDuration</Name>
+      </Expression>
+      <Expression xsi:type="MemberSelector">
+        <Selector>WindowDuration</Selector>
+      </Expression>
+      <Expression xsi:type="rx:BehaviorSubject">
+        <Name>WindowDuration</Name>
+      </Expression>
+      <Expression xsi:type="MemberSelector">
+        <Selector>FilterUpperBound</Selector>
+      </Expression>
+      <Expression xsi:type="rx:BehaviorSubject">
+        <Name>FilterUpperBound</Name>
+      </Expression>
+      <Expression xsi:type="MemberSelector">
+        <Selector>FilterLowerBound</Selector>
+      </Expression>
+      <Expression xsi:type="rx:BehaviorSubject">
+        <Name>FilterLowerBound</Name>
+      </Expression>
+      <Expression xsi:type="MemberSelector">
+        <Selector>DownsampledSampleRate</Selector>
+      </Expression>
+      <Expression xsi:type="rx:BehaviorSubject">
+        <Name>DownsampledSampleRate</Name>
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="p1:ZipN" />
+      </Expression>
+      <Expression xsi:type="SubscribeSubject">
+        <Name>SampleRate</Name>
+      </Expression>
+      <Expression xsi:type="SubscribeSubject">
+        <Name>WindowDuration</Name>
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="rx:Zip" />
+      </Expression>
+      <Expression xsi:type="Multiply" />
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="p1:RoundToInteger" />
+      </Expression>
+      <Expression xsi:type="MemberSelector">
+        <Selector>Item1</Selector>
+      </Expression>
+      <Expression xsi:type="rx:BehaviorSubject">
+        <Name>WindowSize</Name>
+      </Expression>
+      <Expression xsi:type="SubscribeSubject">
+        <Name>SampleRate</Name>
+      </Expression>
+      <Expression xsi:type="SubscribeSubject">
+        <Name>WindowStepDuration</Name>
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="rx:Zip" />
+      </Expression>
+      <Expression xsi:type="Multiply" />
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="p1:RoundToInteger" />
+      </Expression>
+      <Expression xsi:type="MemberSelector">
+        <Selector>Item1</Selector>
+      </Expression>
+      <Expression xsi:type="rx:BehaviorSubject">
+        <Name>WindowStepSize</Name>
+      </Expression>
+      <Expression xsi:type="SubscribeSubject">
+        <Name>DownsampledSampleRate</Name>
+      </Expression>
+      <Expression xsi:type="SubscribeSubject">
+        <Name>WindowDuration</Name>
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="rx:Zip" />
+      </Expression>
+      <Expression xsi:type="Multiply" />
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="p1:RoundToInteger" />
+      </Expression>
+      <Expression xsi:type="MemberSelector">
+        <Selector>Item1</Selector>
+      </Expression>
+      <Expression xsi:type="rx:BehaviorSubject">
+        <Name>DS_WindowSize</Name>
+      </Expression>
+      <Expression xsi:type="SubscribeSubject">
+        <Name>DownsampledSampleRate</Name>
+      </Expression>
+      <Expression xsi:type="SubscribeSubject">
+        <Name>WindowStepDuration</Name>
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="rx:Zip" />
+      </Expression>
+      <Expression xsi:type="Multiply" />
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="p1:RoundToInteger" />
+      </Expression>
+      <Expression xsi:type="MemberSelector">
+        <Selector>Item1</Selector>
+      </Expression>
+      <Expression xsi:type="rx:BehaviorSubject">
+        <Name>DS_WindowStepSize</Name>
+      </Expression>
+      <Expression xsi:type="SubscribeSubject">
+        <Name>DS_WindowSize</Name>
+      </Expression>
+      <Expression xsi:type="Divide">
+        <Operand xsi:type="DoubleProperty">
+          <Value>2</Value>
+        </Operand>
+      </Expression>
+      <Expression xsi:type="Add">
+        <Operand xsi:type="DoubleProperty">
+          <Value>1</Value>
+        </Operand>
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="p1:RoundToInteger" />
+      </Expression>
+      <Expression xsi:type="MemberSelector">
+        <Selector>Item1</Selector>
+      </Expression>
+      <Expression xsi:type="rx:BehaviorSubject">
+        <Name>FFT_BufferSize</Name>
+      </Expression>
+      <Expression xsi:type="SubscribeSubject">
+        <Name>DownsampledSampleRate</Name>
+      </Expression>
+      <Expression xsi:type="Divide">
+        <Operand xsi:type="IntProperty">
+          <Value>2</Value>
+        </Operand>
+      </Expression>
+      <Expression xsi:type="rx:BehaviorSubject">
+        <Name>FFT_UpperBound</Name>
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="DoubleProperty">
+          <Value>0</Value>
+        </Combinator>
+      </Expression>
+      <Expression xsi:type="rx:BehaviorSubject">
+        <Name>FFT_LowerBound</Name>
+      </Expression>
+      <Expression xsi:type="SubscribeSubject">
+        <Name>SampleRate</Name>
+      </Expression>
+      <Expression xsi:type="SubscribeSubject">
+        <Name>DownsampledSampleRate</Name>
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="rx:Zip" />
+      </Expression>
+      <Expression xsi:type="Divide" />
+      <Expression xsi:type="rx:BehaviorSubject">
+        <Name>Downsample Factor</Name>
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="p1:ZipN" />
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="rx:Zip" />
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="BooleanProperty">
+          <Value>true</Value>
+        </Combinator>
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="rx:WithLatestFrom" />
+      </Expression>
+      <Expression xsi:type="MemberSelector">
+        <Selector>Item2</Selector>
+      </Expression>
+      <Expression xsi:type="rx:BehaviorSubject">
+        <Name>InitPreProcessIndicator</Name>
+      </Expression>
+    </Nodes>
+    <Edges>
+      <Edge From="0" To="1" Label="Source1" />
+      <Edge From="1" To="2" Label="Source1" />
+      <Edge From="1" To="4" Label="Source1" />
+      <Edge From="1" To="6" Label="Source1" />
+      <Edge From="1" To="8" Label="Source1" />
+      <Edge From="1" To="10" Label="Source1" />
+      <Edge From="1" To="12" Label="Source1" />
+      <Edge From="1" To="14" Label="Source1" />
+      <Edge From="1" To="16" Label="Source1" />
+      <Edge From="1" To="18" Label="Source1" />
+      <Edge From="1" To="20" Label="Source1" />
+      <Edge From="2" To="3" Label="Source1" />
+      <Edge From="3" To="22" Label="Source1" />
+      <Edge From="4" To="5" Label="Source1" />
+      <Edge From="5" To="22" Label="Source7" />
+      <Edge From="6" To="7" Label="Source1" />
+      <Edge From="7" To="22" Label="Source8" />
+      <Edge From="8" To="9" Label="Source1" />
+      <Edge From="9" To="22" Label="Source9" />
+      <Edge From="10" To="11" Label="Source1" />
+      <Edge From="11" To="22" Label="Source10" />
+      <Edge From="12" To="13" Label="Source1" />
+      <Edge From="13" To="22" Label="Source11" />
+      <Edge From="14" To="15" Label="Source1" />
+      <Edge From="15" To="22" Label="Source12" />
+      <Edge From="16" To="17" Label="Source1" />
+      <Edge From="17" To="22" Label="Source13" />
+      <Edge From="18" To="19" Label="Source1" />
+      <Edge From="19" To="22" Label="Source14" />
+      <Edge From="20" To="21" Label="Source1" />
+      <Edge From="21" To="22" Label="Source15" />
+      <Edge From="22" To="68" Label="Source1" />
+      <Edge From="23" To="25" Label="Source1" />
+      <Edge From="24" To="25" Label="Source2" />
+      <Edge From="25" To="26" Label="Source1" />
+      <Edge From="26" To="27" Label="Source1" />
+      <Edge From="27" To="28" Label="Source1" />
+      <Edge From="28" To="29" Label="Source1" />
+      <Edge From="29" To="67" Label="Source1" />
+      <Edge From="30" To="32" Label="Source1" />
+      <Edge From="31" To="32" Label="Source2" />
+      <Edge From="32" To="33" Label="Source1" />
+      <Edge From="33" To="34" Label="Source1" />
+      <Edge From="34" To="35" Label="Source1" />
+      <Edge From="35" To="36" Label="Source1" />
+      <Edge From="36" To="67" Label="Source2" />
+      <Edge From="37" To="39" Label="Source1" />
+      <Edge From="38" To="39" Label="Source2" />
+      <Edge From="39" To="40" Label="Source1" />
+      <Edge From="40" To="41" Label="Source1" />
+      <Edge From="41" To="42" Label="Source1" />
+      <Edge From="42" To="43" Label="Source1" />
+      <Edge From="43" To="67" Label="Source3" />
+      <Edge From="44" To="46" Label="Source1" />
+      <Edge From="45" To="46" Label="Source2" />
+      <Edge From="46" To="47" Label="Source1" />
+      <Edge From="47" To="48" Label="Source1" />
+      <Edge From="48" To="49" Label="Source1" />
+      <Edge From="49" To="50" Label="Source1" />
+      <Edge From="50" To="67" Label="Source4" />
+      <Edge From="51" To="52" Label="Source1" />
+      <Edge From="52" To="53" Label="Source1" />
+      <Edge From="53" To="54" Label="Source1" />
+      <Edge From="54" To="55" Label="Source1" />
+      <Edge From="55" To="56" Label="Source1" />
+      <Edge From="56" To="67" Label="Source5" />
+      <Edge From="57" To="58" Label="Source1" />
+      <Edge From="58" To="59" Label="Source1" />
+      <Edge From="59" To="67" Label="Source6" />
+      <Edge From="60" To="61" Label="Source1" />
+      <Edge From="61" To="67" Label="Source7" />
+      <Edge From="62" To="64" Label="Source1" />
+      <Edge From="63" To="64" Label="Source2" />
+      <Edge From="64" To="65" Label="Source1" />
+      <Edge From="65" To="66" Label="Source1" />
+      <Edge From="66" To="67" Label="Source8" />
+      <Edge From="67" To="68" Label="Source2" />
+      <Edge From="68" To="70" Label="Source1" />
+      <Edge From="69" To="70" Label="Source2" />
+      <Edge From="70" To="71" Label="Source1" />
+      <Edge From="71" To="72" Label="Source1" />
+    </Edges>
+  </Workflow>
+</WorkflowBuilder>
