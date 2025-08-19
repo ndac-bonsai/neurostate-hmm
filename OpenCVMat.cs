@@ -5,7 +5,7 @@ using System.Linq;
 using System.Reactive.Linq;
 using OpenCV.Net;
 
-namespace neurostate_hmm
+namespace neurostate-hmm
 {
     [Combinator]
     [Description("Creates an observable sequence of an OpenCV Mat.")]

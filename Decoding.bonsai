@@ -3,7 +3,7 @@
                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                  xmlns:dsp="clr-namespace:Bonsai.Dsp;assembly=Bonsai.Dsp"
                  xmlns:py="clr-namespace:Bonsai.Scripting.Python;assembly=Bonsai.Scripting.Python"
-                 xmlns:p1="clr-namespace:neurostate_hmm;assembly=neurostate_hmm"
+                 xmlns:p1="clr-namespace:neurostate-hmm;assembly=neurostate-hmm"
                  xmlns="https://bonsai-rx.org/2018/workflow">
   <Workflow>
     <Nodes>

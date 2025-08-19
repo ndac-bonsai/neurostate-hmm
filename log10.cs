@@ -4,7 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Reactive.Linq;
 
-namespace neurostate_hmm
+namespace neurostate-hmm
 {
     [Combinator]
     [Description("Takes the log base 10 of each element in every incoming float array. Returns a float array")]

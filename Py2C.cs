@@ -6,7 +6,7 @@ using System.Linq;
 using System.Reactive.Linq;
 using Python.Runtime;
 
-namespace neurostate_hmm
+namespace neurostate-hmm
 {
     [Combinator]
     [Description("Converts an incoming stream of Python objects of numpy float64 arrays to C# double arrays (F64)")]

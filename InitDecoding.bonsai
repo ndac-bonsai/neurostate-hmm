@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <WorkflowBuilder Version="2.8.5"
                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-                 xmlns:p1="clr-namespace:neurostate_hmm;assembly=neurostate_hmm"
+                 xmlns:p1="clr-namespace:neurostate-hmm;assembly=neurostate-hmm"
                  xmlns:rx="clr-namespace:Bonsai.Reactive;assembly=Bonsai.Core"
                  xmlns:py="clr-namespace:Bonsai.Scripting.Python;assembly=Bonsai.Scripting.Python"
                  xmlns="https://bonsai-rx.org/2018/workflow">
@@ -18,7 +18,7 @@
         <Property Name="HighFrequencyBound" />
         <Property Name="Parameters_FN" />
       </Expression>
-      <Expression xsi:type="IncludeWorkflow" Path="neurostate_hmm:InitPreProcess.bonsai">
+      <Expression xsi:type="IncludeWorkflow" Path="neurostate-hmm:InitPreProcess.bonsai">
         <SampleRate>30000</SampleRate>
         <DownsampledSampleRate>500</DownsampledSampleRate>
         <FilterLowerBound>0.3</FilterLowerBound>
@@ -95,7 +95,7 @@
       <Expression xsi:type="Combinator">
         <Combinator xsi:type="py:CreateModule">
           <py:Name>FitModel</py:Name>
-          <py:ScriptPath>neurostate_hmm:StateDecodingFuncs.py</py:ScriptPath>
+          <py:ScriptPath>neurostate-hmm:StateDecodingFuncs.py</py:ScriptPath>
         </Combinator>
       </Expression>
       <Expression xsi:type="rx:ResourceSubject">

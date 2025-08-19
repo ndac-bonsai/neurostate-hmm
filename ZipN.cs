@@ -4,7 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Reactive.Linq;
 
-namespace neurostate_hmm
+namespace neurostate-hmm
 {
     [Combinator]
     [Description("Zips an arbitrary number of input sequences into a single sequence of tuples.")]

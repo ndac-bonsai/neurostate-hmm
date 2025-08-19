@@ -4,7 +4,7 @@ using System.ComponentModel;
 using System.Reactive.Linq;
 
 
-namespace neurostate_hmm
+namespace neurostate-hmm
 {
     [Combinator]
     [Description("Contains all parameters necessary for Preprocessing LFP data")]

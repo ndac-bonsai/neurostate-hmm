@@ -3,7 +3,7 @@ using System;
 using System.ComponentModel;
 using System.Reactive.Linq;
 
-namespace neurostate_hmm
+namespace neurostate-hmm
 {
     [Combinator]
     [Description("Rounds a double to the nearest integer. Returns a tuple with the integer value and a boolean indicating if rounding was needed.")]
