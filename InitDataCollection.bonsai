@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <WorkflowBuilder Version="2.8.5"
                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-                 xmlns:p1="clr-namespace:neurostate-hmm;assembly=neurostate-hmm"
+                 xmlns:p1="clr-namespace:neurostate_hmm;assembly=neurostate_hmm"
                  xmlns:rx="clr-namespace:Bonsai.Reactive;assembly=Bonsai.Core"
                  xmlns="https://bonsai-rx.org/2018/workflow">
   <Workflow>
@@ -17,7 +17,7 @@
         <Property Name="HighFrequencyBound" />
         <Property Name="Parameters_FN" />
       </Expression>
-      <Expression xsi:type="IncludeWorkflow" Path="neurostate-hmm:InitPreProcess.bonsai">
+      <Expression xsi:type="IncludeWorkflow" Path="neurostate_hmm:InitPreProcess.bonsai">
         <SampleRate>30000</SampleRate>
         <DownsampledSampleRate>500</DownsampledSampleRate>
         <FilterLowerBound>0.3</FilterLowerBound>

@@ -1,0 +1,37 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\aborsa3\\Documents\\BonsaiCorticalState\\neurostate-hmm\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{22796916-8507-40B8-989F-3AF1C92C446A}|neurostate-hmm.csproj|c:\\users\\aborsa3\\documents\\bonsaicorticalstate\\neurostate-hmm\\datacollection.bonsai||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{22796916-8507-40B8-989F-3AF1C92C446A}|neurostate-hmm.csproj|solutionrelative:datacollection.bonsai||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "DataCollection.bonsai",
+              "DocumentMoniker": "C:\\Users\\aborsa3\\Documents\\BonsaiCorticalState\\neurostate-hmm\\DataCollection.bonsai",
+              "RelativeDocumentMoniker": "DataCollection.bonsai",
+              "ToolTip": "C:\\Users\\aborsa3\\Documents\\BonsaiCorticalState\\neurostate-hmm\\DataCollection.bonsai",
+              "RelativeToolTip": "DataCollection.bonsai",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAoAAABBAAAA",
+              "Icon": "00000000-0000-0000-0000-000000000000.000000|iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAGpSURBVDhPjZMxb9NAFMd/z2e1idKqWShbJJDSLBkoHwCQgCKFARi9k6\u002BQiFhBhECHKJUiZoZskVgQE\u002BqAkLLEElAmsqQfoXUyRDi0ro8FG9dOq/6me\u002B/\u002B73/v7umEf2itnwNGGC9BgA8iMo0yWmsJ15PJxB8MBiraTGCaJrVabaqU2hKRozAfGTiO4/f7fWVZVlQUp9PpUCqV6Ha7rohsicjxOYHjOH6j0dAXUa1WdaVS0fV6XQdB8Cusu\u002BzOaG\u002BB9hYAFAoFyuUy4/GY0WhUCjVmvCBEz2bMmy1Ac/LlKyv37mDvtpF8Htu2Uer/Uy3tYP6iibp5g/XeHrmXNvg\u002B8\u002BarpAyWGWhvwdnhIavPnhC4U1YfPSTXbuH/OED/9pLytAGAbGzg9d5x8nmf2eOnTO/eJzg6BiMaWkTKQLIZjM1rnB78BGWQe9vCuL7Jys4DJJNJytMGAGu7bczb25x\u002B\u002B86fj58wt2\u002Bx9uZ1UgYXTUHyedZ7e9EIJZs\u002BOWRpByGSzVxaTLID13UZDofxVArXdc/FV/5McSzLOisWiyZxgyt85ziBiLwH\u002BAukS6WSsgcGiAAAAABJRU5ErkJggg==",
+              "WhenOpened": "2025-08-19T16:42:45.21Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "version": 2,
+  "dgSpecHash": "hB/huFSKqJk=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\aborsa3\\Documents\\BonsaiCorticalState\\neurostate-hmm\\neurostate_hmm.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\aborsa3\\.nuget\\packages\\bonsai.core\\2.8.2\\bonsai.core.2.8.2.nupkg.sha512",
+    "C:\\Users\\aborsa3\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
+    "C:\\Users\\aborsa3\\.nuget\\packages\\opencv.net\\3.4.2\\opencv.net.3.4.2.nupkg.sha512",
+    "C:\\Users\\aborsa3\\.nuget\\packages\\pythonnet\\3.0.5\\pythonnet.3.0.5.nupkg.sha512",
+    "C:\\Users\\aborsa3\\.nuget\\packages\\rx-core\\2.2.5\\rx-core.2.2.5.nupkg.sha512",
+    "C:\\Users\\aborsa3\\.nuget\\packages\\rx-interfaces\\2.2.5\\rx-interfaces.2.2.5.nupkg.sha512",
+    "C:\\Users\\aborsa3\\.nuget\\packages\\rx-linq\\2.2.5\\rx-linq.2.2.5.nupkg.sha512",
+    "C:\\Users\\aborsa3\\.nuget\\packages\\rx-platformservices\\2.2.5\\rx-platformservices.2.2.5.nupkg.sha512",
+    "C:\\Users\\aborsa3\\.nuget\\packages\\system.reflection.emit\\4.3.0\\system.reflection.emit.4.3.0.nupkg.sha512"
+  ],
+  "logs": []
+}
