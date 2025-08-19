@@ -7,7 +7,7 @@
 	<Copyright>Copyright © Georgia Institute of Technology 2025</Copyright>
 
 	<GeneratePackageOnBuild Condition="'$(Configuration)'=='Release'">true</GeneratePackageOnBuild>
-	<Version>0.1.0-alpha</Version>
+	<Version>0.1.1-alpha</Version>
 	<PackageProjectUrl>https://github.com/ndac-bonsai/neurostate-hmm</PackageProjectUrl>
 	<RepositoryUrl>https://github.com/ndac-bonsai/neurostate-hmm</RepositoryUrl>
 	<RepositoryType>git</RepositoryType>
